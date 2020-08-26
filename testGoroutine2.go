@@ -13,13 +13,16 @@ func main(){
 	var readc2 <-chan int  = c2
 	var writec2 chan <- int = c2
 	var wg sync.WaitGroup
-	wg.Add(3)
+	wg.Add(1)
 	go setChan(writec,&wg)
+	wg.Add(1)
 	go setChan2(writec2,&wg)
-
+	wg.Add(1)
 	go getChan(readc,&wg)
+	wg.Add(1)
 	go getChan2(readc2,&wg)
 	wg.Wait()
+	fmt.Println("协程控制结束")
 }
 func setChan(writec chan <- int,wg *sync.WaitGroup){
 	for i:=0;i<10;i++{
